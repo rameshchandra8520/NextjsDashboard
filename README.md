@@ -106,7 +106,18 @@ A modern dashboard application built with Next.js, featuring Google OAuth authen
 
 ## Deployment
 
-This project can be easily deployed on [Vercel](https://vercel.com) or [Railway](https://railway.app).
+### Deploying to Vercel
+
+This project is configured for seamless deployment to Vercel:
+
+1. **Prepare your project**
+   ```bash
+   # Run tests to ensure everything is working
+   npm test
+   
+   # Build the project locally first to catch any issues
+   npm run build
+   ```
 
 ## Testing
 
