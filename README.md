@@ -1,6 +1,8 @@
 # Next.js Dashboard with Google Authentication
 
-A modern dashboard application built with Next.js, featuring Google OAuth authentication and a responsive UI.
+By Ramesh Chandra Pola,
+
+A modern dashboard application built with Next.js, featuring Google OAuth authentication and a responsive UI for managing pizza orders.
 
 ## Features
 
@@ -16,6 +18,12 @@ A modern dashboard application built with Next.js, featuring Google OAuth authen
 - **Authentication**: NextAuth.js
 - **Styling**: Tailwind CSS
 - **Language**: TypeScript
+
+## Additional Libraries
+
+- **lucide-react**: Beautifully crafted open source icons
+- **next-themes**: Theme management for Next.js
+- **react-hot-toast**: Lightweight toast notifications
 
 ## Getting Started
 
@@ -54,6 +62,8 @@ A modern dashboard application built with Next.js, featuring Google OAuth authen
    - Navigate to "APIs & Services" > "Credentials"
    - Create an OAuth 2.0 Client ID
    - Add authorized redirect URIs: `http://localhost:3000/api/auth/callback/google`
+   - Configure the OAuth consent screen with necessary information
+   - Download credentials and add them to your `.env.local` file
 
 4. Run the development server:
    ```bash
@@ -81,9 +91,42 @@ A modern dashboard application built with Next.js, featuring Google OAuth authen
 └── README.md          # Project documentation
 ```
 
+## Assumptions and Challenges
+
+### Assumptions
+- Users have basic familiarity with Next.js and React
+- Authentication is handled solely through Google OAuth
+- The pizza order data is managed through mock data for demonstration purposes
+
+### Challenges Faced
+- Implementing protected routes with Next.js App Router
+- Managing state across the application while maintaining type safety
+- Ensuring responsive design across various device sizes
+- Handling authentication flow with proper error states and loading indicators
+
 ## Deployment
 
 This project can be easily deployed on [Vercel](https://vercel.com) or [Railway](https://railway.app).
+
+## Testing
+
+This project uses Jest and React Testing Library for testing:
+
+```bash
+# Run tests
+npm test
+
+# Run tests in watch mode
+npm run test:watch
+
+# Run tests with coverage report
+npm run test:coverage
+```
+
+Testing libraries used:
+- Jest: JavaScript testing framework
+- React Testing Library: Testing utilities for React components
+- @testing-library/user-event: Simulates user interactions
 
 ## License
 
