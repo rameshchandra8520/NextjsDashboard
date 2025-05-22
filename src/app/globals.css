@@ -101,3 +101,23 @@ body, button, input, select, textarea, div, a {
 .scrollbar-thin::-webkit-scrollbar-thumb:hover {
   background-color: rgba(156, 163, 175, 0.8);
 }
+
+/* Smoke animation for error page */
+@keyframes smoke {
+  0% {
+    transform: translateY(0) scaleX(1) scaleY(1);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translateY(-5px) scaleX(1.2) scaleY(1.2);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(-10px) scaleX(0.8) scaleY(1.5);
+    opacity: 0;
+  }
+}
+
+.animate-smoke {
+  animation: smoke 2s ease-in-out infinite;
+}
