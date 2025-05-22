@@ -16,8 +16,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Next.js Dashboard",
-  description: "A dashboard application with Google Authentication",
+  title: "Pizza Dashboard",
+  description: "A pizza ordering and management dashboard",
 };
 
 export default function RootLayout({
@@ -26,7 +26,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`} suppressHydrationWarning>
       <head>
         {/* Fix for theme flickering */}
         <script
@@ -48,13 +48,13 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white text-black dark:bg-gray-950 dark:text-white`}
-      >
+      <body className="antialiased bg-white text-black dark:bg-gray-950 dark:text-white">
         <ThemeProvider>
           <AuthProvider>
             <ToastProvider />
-            {children}
+            <main className="min-h-screen pt-16">
+              {children}
+            </main>
           </AuthProvider>
         </ThemeProvider>
       </body>

@@ -2,39 +2,35 @@
 
 import Navbar from "@/components/dashboard/Navbar";
 
-export default function DashboardLayout({
+export default function Layout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <>
       <Navbar />
-      <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-        <div className="px-4 py-6 sm:px-0 animate-fadeIn">
-          {children}
-        </div>
-      </main>
-      
-      {/* Footer */}
-      <footer className="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 mt-auto">
-        <div className="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
-          <p className="text-sm text-center text-gray-500 dark:text-gray-400">
+      <div className="w-full max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 mt-16 min-h-[calc(100vh-116px)]">
+        {children}
+      </div>
+      <footer className="w-full bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 py-4 mt-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center">
+          <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mb-2 sm:mb-0">
             © {new Date().getFullYear()} Pizza Dashboard. All rights reserved.
           </p>
+          <div className="flex gap-4">
+            <a href="#" className="text-xs sm:text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 transition-colors">
+              Terms
+            </a>
+            <a href="#" className="text-xs sm:text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 transition-colors">
+              Privacy
+            </a>
+            <a href="#" className="text-xs sm:text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 transition-colors">
+              Contact
+            </a>
+          </div>
         </div>
       </footer>
-      
-      {/* Add a global style for animations */}
-      <style jsx global>{`
-        @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(10px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-fadeIn {
-          animation: fadeIn 0.5s ease-out forwards;
-        }
-      `}</style>
-    </div>
+    </>
   );
 } 

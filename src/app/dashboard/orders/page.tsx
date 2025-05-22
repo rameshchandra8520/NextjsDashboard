@@ -133,17 +133,17 @@ export default function Orders() {
       </div>
       
       <div className="border-t border-gray-200 dark:border-gray-700">
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto scrollbar-thin">
           <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
             <thead className="bg-gray-50 dark:bg-gray-800">
               <tr>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                  className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
                   onClick={() => handleSort("id")}
                 >
                   <div className="flex items-center">
-                    Order ID
+                    <span className="whitespace-nowrap">Order ID</span>
                     {sortField === "id" && (
                       <span className="ml-1">
                         {sortDirection === "asc" ? "↑" : "↓"}
@@ -153,11 +153,11 @@ export default function Orders() {
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                  className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors hidden sm:table-cell"
                   onClick={() => handleSort("customerName")}
                 >
                   <div className="flex items-center">
-                    Customer Name
+                    <span className="whitespace-nowrap">Customer</span>
                     {sortField === "customerName" && (
                       <span className="ml-1">
                         {sortDirection === "asc" ? "↑" : "↓"}
@@ -167,11 +167,11 @@ export default function Orders() {
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                  className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
                   onClick={() => handleSort("pizzaType")}
                 >
                   <div className="flex items-center">
-                    Pizza Type
+                    <span className="whitespace-nowrap">Pizza</span>
                     {sortField === "pizzaType" && (
                       <span className="ml-1">
                         {sortDirection === "asc" ? "↑" : "↓"}
@@ -181,11 +181,11 @@ export default function Orders() {
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                  className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors hidden md:table-cell"
                   onClick={() => handleSort("quantity")}
                 >
                   <div className="flex items-center">
-                    Quantity
+                    <span className="whitespace-nowrap">Qty</span>
                     {sortField === "quantity" && (
                       <span className="ml-1">
                         {sortDirection === "asc" ? "↑" : "↓"}
@@ -195,11 +195,11 @@ export default function Orders() {
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                  className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors hidden md:table-cell"
                   onClick={() => handleSort("orderDate")}
                 >
                   <div className="flex items-center">
-                    Order Date
+                    <span className="whitespace-nowrap">Date</span>
                     {sortField === "orderDate" && (
                       <span className="ml-1">
                         {sortDirection === "asc" ? "↑" : "↓"}
@@ -209,11 +209,11 @@ export default function Orders() {
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                  className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
                   onClick={() => handleSort("status")}
                 >
                   <div className="flex items-center">
-                    Status
+                    <span className="whitespace-nowrap">Status</span>
                     {sortField === "status" && (
                       <span className="ml-1">
                         {sortDirection === "asc" ? "↑" : "↓"}
@@ -226,29 +226,29 @@ export default function Orders() {
             <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
               {displayedOrders.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="px-6 py-10 text-center text-gray-500 dark:text-gray-400">
+                  <td colSpan={6} className="px-4 py-10 text-center text-gray-500 dark:text-gray-400">
                     No orders found with the selected filter
                   </td>
                 </tr>
               ) : (
                 displayedOrders.map((order) => (
                   <tr key={order.id} className="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
+                    <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
                       {order.id}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+                    <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300 hidden sm:table-cell">
                       {order.customerName}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+                    <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
                       {order.pizzaType}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+                    <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300 hidden md:table-cell">
                       {order.quantity}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+                    <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300 hidden md:table-cell">
                       {order.orderDate}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
+                    <td className="px-4 py-4 whitespace-nowrap">
                       <span
                         className={`px-2 py-1 text-xs leading-5 font-medium rounded-full ring-1 ${getStatusBadgeClass(
                           order.status

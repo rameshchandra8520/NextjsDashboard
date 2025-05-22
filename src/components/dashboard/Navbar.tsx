@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import ThemeToggle from "@/components/ui/ThemeToggle";
 
@@ -14,6 +14,25 @@ export default function Navbar() {
   const { data: session } = useSession();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 10) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Close mobile menu when route changes
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [pathname]);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -41,10 +60,10 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="bg-white shadow-sm border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+    <nav className={`fixed top-0 left-0 right-0 z-10 bg-white shadow-sm border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700 transition-all ${scrolled ? 'backdrop-blur-md bg-white/90 dark:bg-gray-800/90' : ''}`}>
       <div className="mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
-          <div className="flex">
+          <div className="flex items-center">
             <div className="flex-shrink-0 flex items-center">
               <Link href="/dashboard" className="flex items-center gap-2">
                 <div className="bg-red-500 rounded-full p-1">
@@ -78,25 +97,27 @@ export default function Navbar() {
               </Link>
             </div>
           </div>
-          <div className="hidden sm:ml-6 sm:flex sm:items-center gap-4">
+          <div className="hidden sm:ml-6 sm:flex sm:items-center sm:gap-4">
             <ThemeToggle />
-            <div className="relative flex items-center gap-4">
+            <div className="relative flex items-center gap-3">
               {session?.user?.image && (
-                <Image
-                  className="h-8 w-8 rounded-full border-2 border-gray-200 dark:border-gray-700"
-                  src={session.user.image}
-                  alt={`${session.user.name}'s profile`}
-                  width={32}
-                  height={32}
-                />
+                <div className="relative group">
+                  <Image
+                    className="h-8 w-8 rounded-full border-2 border-gray-200 dark:border-gray-700"
+                    src={session.user.image}
+                    alt={`${session.user.name}'s profile`}
+                    width={32}
+                    height={32}
+                  />
+                  <div className="hidden group-hover:flex absolute -bottom-10 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs rounded py-1 px-2 whitespace-nowrap">
+                    {session.user.name}
+                  </div>
+                </div>
               )}
-              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                {session?.user?.name}
-              </span>
               <button
                 onClick={handleLogout}
                 disabled={isLoggingOut}
-                className="px-3 py-1 text-sm text-white bg-red-500 rounded-md hover:bg-red-600 transition-colors duration-200 disabled:bg-red-400 flex items-center"
+                className="px-3 py-1.5 text-sm font-medium text-white bg-red-500 rounded-md hover:bg-red-600 transition-colors duration-200 disabled:bg-red-400 flex items-center"
               >
                 {isLoggingOut ? (
                   <>
@@ -166,24 +187,27 @@ export default function Navbar() {
       </div>
 
       {/* Mobile menu */}
-      <div className={`sm:hidden ${isMobileMenuOpen ? 'block' : 'hidden'} transition-all duration-300`} id="mobile-menu">
-        <div className="pt-2 pb-3 space-y-1">
+      <div 
+        className={`sm:hidden transition-all duration-300 overflow-hidden ${isMobileMenuOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'}`} 
+        id="mobile-menu"
+      >
+        <div className="pt-2 pb-3 space-y-1 px-4">
           <Link
             href="/dashboard"
-            className={`block pl-3 pr-4 py-2 border-l-4 text-base font-medium transition-colors duration-200 ${
+            className={`block py-2.5 px-4 rounded-md text-base font-medium transition-colors duration-200 ${
               pathname === "/dashboard"
-                ? "border-red-500 text-red-700 bg-red-50 dark:text-red-400 dark:bg-red-900/20"
-                : "border-transparent text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 hover:border-gray-300 dark:hover:border-gray-600 hover:text-gray-800 dark:hover:text-gray-200"
+                ? "bg-red-50 text-red-700 dark:bg-red-900/20 dark:text-red-400"
+                : "text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-800 dark:hover:text-gray-200"
             }`}
           >
             Home
           </Link>
           <Link
             href="/dashboard/orders"
-            className={`block pl-3 pr-4 py-2 border-l-4 text-base font-medium transition-colors duration-200 ${
+            className={`block py-2.5 px-4 rounded-md text-base font-medium transition-colors duration-200 ${
               pathname === "/dashboard/orders"
-                ? "border-red-500 text-red-700 bg-red-50 dark:text-red-400 dark:bg-red-900/20"
-                : "border-transparent text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 hover:border-gray-300 dark:hover:border-gray-600 hover:text-gray-800 dark:hover:text-gray-200"
+                ? "bg-red-50 text-red-700 dark:bg-red-900/20 dark:text-red-400"
+                : "text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-800 dark:hover:text-gray-200"
             }`}
           >
             Pizza Orders
@@ -214,7 +238,7 @@ export default function Navbar() {
               <button
                 onClick={handleLogout}
                 disabled={isLoggingOut}
-                className="block w-full text-left px-4 py-2 text-base font-medium text-white bg-red-500 hover:bg-red-600 transition-colors duration-200 rounded-md disabled:bg-red-400 flex items-center justify-center"
+                className="w-full flex items-center justify-center px-4 py-2.5 text-base font-medium text-white bg-red-500 hover:bg-red-600 transition-colors duration-200 rounded-md disabled:bg-red-400"
               >
                 {isLoggingOut ? (
                   <>
